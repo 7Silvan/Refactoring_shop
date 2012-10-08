@@ -1,1 +1,1 @@
-java -cp classes ShoppingCart
+java -cp classes shop.ShoppingCart
