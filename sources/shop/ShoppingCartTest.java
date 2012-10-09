@@ -104,7 +104,9 @@ public class ShoppingCartTest {
      */
     @Test
     public void calculateDiscount_shouldReturnFiftyForSECOND_FREEIfQuantityBiggerThan1() throws Exception {
-        assertEquals(50, ShoppingCart.calculateDiscount(ItemType.SECOND_FREE, 100));
+        // 60, not 50 cause 50 as discount for this rule and +1 for every ten non-New
+        //assertEquals(50, ShoppingCart.calculateDiscount(ItemType.SECOND_FREE, 5));
+        assertEquals(60, ShoppingCart.calculateDiscount(ItemType.SECOND_FREE, 100));
     }
 
     /**
@@ -122,7 +124,8 @@ public class ShoppingCartTest {
      */
     @Test
     public void calculateDiscount_shouldReturnSeventyForSALE() throws Exception {
-        assertEquals(70, ShoppingCart.calculateDiscount(ItemType.SALE, 100));
+        // same thing with extra +1 per every non-New ten
+        assertEquals(80, ShoppingCart.calculateDiscount(ItemType.SALE, 100));
     }
 
     /**
