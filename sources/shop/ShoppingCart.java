@@ -25,7 +25,7 @@ public class ShoppingCart {
      * Adds new item.
      *
      * @param title    item title 1 to 32 symbols
-     * @param price    item ptice in USD, > 0
+     * @param price    item price in USD, > 0
      * @param quantity item quantity, from 1
      * @param type     item type
      * @throws IllegalArgumentException if some value is wrong
@@ -44,16 +44,17 @@ public class ShoppingCart {
      *         first line:   # Item                   Price Quan. Discount      Total
      *         second line: ---------------------------------------------------------
      *         next lines:  NN Title                 $PP.PP    Q       DD%     $TT.TT
-     *         1 Some title              $.30    2         -       $.60
-     *         2 Some very long       $100.00    1       50%     $50.00
-     *         ...
-     *         31 Item 42              $999.00 1000         - $999000.00
+     *                       1 Some title              $.30    2         -       $.60
+     *                       2 Some very long       $100.00    1       50%     $50.00
+     *                       ...
+     *                      31 Item 42              $999.00 1000         - $999000.00
      *         end line:    ---------------------------------------------------------
      *         last line:   31                                             $999050.60
      *         <p/>
      *         if no items in cart returns "No items." string.
      * @should return lines of cart items description
      * @should return "No items." if cart is empty
+     * TODO add tests with length of columns
      */
     public String formatTicket() {
         
@@ -66,24 +67,7 @@ public class ShoppingCart {
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
 
         // formatting each line
-        double total = 0.00;
-        int index = 0;
-        for (Item item : items) {
-            int discount = calculateDiscount(item.type, item.quantity);
-            double itemTotal = item.price * item.quantity * (100.00 - discount) / 100.00;
-
-            lines.add(new String[]{
-                    String.valueOf(++index),
-                    item.title,
-                    MONEY.format(item.price),
-                    String.valueOf(item.quantity),
-                    (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
-                    MONEY.format(itemTotal)
-            });
-            total += itemTotal;
-        }
-        String[] footer = {String.valueOf(index), "", "", "", "",
-                MONEY.format(total)};
+        String[] footer = formatItemLines(lines);
 
         // formatting table
 
@@ -132,6 +116,27 @@ public class ShoppingCart {
             appendFormatted(sb, footer[i], align[i], width[i]);
 
         return sb.toString();
+    }
+
+    private String[] formatItemLines(List<String[]> lines) {
+        double total = 0.00;
+        int index = 0;
+        for (Item item : items) {
+            int discount = calculateDiscount(item.type, item.quantity);
+            double itemTotal = item.price * item.quantity * (100.00 - discount) / 100.00;
+
+            lines.add(new String[]{
+                    String.valueOf(++index),
+                    item.title,
+                    MONEY.format(item.price),
+                    String.valueOf(item.quantity),
+                    (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
+                    MONEY.format(itemTotal)
+            });
+            total += itemTotal;
+        }
+        return new String[]{String.valueOf(index), "", "", "", "",
+                MONEY.format(total)};
     }
 
     // --- private section -----------------------------------------------------
