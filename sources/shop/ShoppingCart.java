@@ -7,9 +7,7 @@ import java.text.*;
  * Containing items and calculating price.
  */
 public class ShoppingCart {
-    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE}
-
-    ;
+    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE};
 
     /**
      * Tests all class methods.
@@ -36,24 +34,7 @@ public class ShoppingCart {
      * @should throw IllegalArgumentException if quantity is equals or less than zero
      */
     public void addItem(String title, double price, int quantity, ItemType type) {
-        // TODO replace validation logic to domain
-        if (title == null || title.length() == 0 || title.length() > 32)
-            throw new IllegalArgumentException("Illegal title");
-
-        if (price < 0.01)
-            throw new IllegalArgumentException("Illegal price");
-
-        if (quantity <= 0)
-            throw new IllegalArgumentException("Illegal quantity");
-
-        // TODO incapsulate access
-        Item item = new Item();
-        item.title = title;
-        item.price = price;
-        item.quantity = quantity;
-        item.type = type;
-
-        items.add(item);
+        items.add(new Item(title, price, quantity, type));
     }
 
     /**
@@ -75,6 +56,7 @@ public class ShoppingCart {
      * @should return "No items." if cart is empty
      */
     public String formatTicket() {
+        
         if (items.size() == 0)
             return "No items.";
 
@@ -233,10 +215,72 @@ public class ShoppingCart {
      * item info
      */
     private static class Item {
-        String title;
-        double price;
-        int quantity;
-        ItemType type;
+        private String title;
+        private double price;
+        private int quantity;
+        private ItemType type;
+
+        public Item() {}
+
+        public Item(String title, double price, int quantity, ItemType type) {
+            setTitle(title);
+            setPrice(price);
+            setQuantity(quantity);
+            this.type = type;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        /**
+         * Includes validation check
+         * @param title
+         */
+        public void setTitle(String title) {
+            if (title == null || title.length() == 0 || title.length() > 32)
+                throw new IllegalArgumentException("Illegal title");
+
+            this.title = title;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        /**
+         * Includes validation check
+         * @param price
+         */
+        public void setPrice(double price) {
+            if (price < 0.01)
+                throw new IllegalArgumentException("Illegal price");
+
+            this.price = price;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        /**
+         * Includes validation check
+         * @param quantity
+         */
+        public void setQuantity(int quantity) {
+            if (quantity <= 0)
+                throw new IllegalArgumentException("Illegal quantity");
+
+            this.quantity = quantity;
+        }
+
+        public ItemType getType() {
+            return type;
+        }
+
+        public void setType(ItemType type) {
+            this.type = type;
+        }
     }
 
     /**
