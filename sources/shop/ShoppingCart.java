@@ -63,6 +63,8 @@ public class ShoppingCart {
 
         List<String[]> lines = new ArrayList<String[]>();
 
+        // TODO replace array with object
+        // work with table consists of two ways of interaction: filling and formatting
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
 
@@ -93,10 +95,7 @@ public class ShoppingCart {
             appendFormatted(sb, header[i], align[i], width[i]);
         sb.append("\n");
 
-        // separator
-        for (int i = 0; i < lineLength; i++)
-            sb.append("-");
-        sb.append("\n");
+        sb.append(printSeparator(lineLength));
 
         // lines
         for (String[] line : lines) {
@@ -104,18 +103,23 @@ public class ShoppingCart {
                 appendFormatted(sb, line[i], align[i], width[i]);
             sb.append("\n");
         }
-        if (lines.size() > 0) {
-            // separator
-            for (int i = 0; i < lineLength; i++)
-                sb.append("-");
-            sb.append("\n");
-        }
+        
+        if (lines.size() > 0)
+            sb.append(printSeparator(lineLength));
 
         // footer
         for (int i = 0; i < footer.length; i++)
             appendFormatted(sb, footer[i], align[i], width[i]);
 
         return sb.toString();
+    }
+
+    private String printSeparator(int lineLength) {
+        String result = "";
+        for (int i = 0; i < lineLength; i++)
+            result = result.concat("-");
+        result = result.concat("\n");
+        return result;
     }
 
     private String[] formatItemLines(List<String[]> lines) {
