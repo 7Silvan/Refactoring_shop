@@ -128,7 +128,6 @@ public class ShoppingCart {
         int index = 0;
         for (Item item : items) {
             int discount = calculateDiscount(item.type, item.quantity);
-            double itemTotal = calculateItemTotal(item);
 
             lines.add(new String[]{
                     String.valueOf(++index),
@@ -136,9 +135,9 @@ public class ShoppingCart {
                     MONEY.format(item.price),
                     String.valueOf(item.quantity),
                     (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
-                    MONEY.format(itemTotal)
+                    MONEY.format(calculateItemTotal(item))
             });
-            total += itemTotal;
+            total += calculateItemTotal(item);
         }
         return new String[]{String.valueOf(index), "", "", "", "",
                 MONEY.format(total)};
