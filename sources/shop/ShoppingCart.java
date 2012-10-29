@@ -54,7 +54,8 @@ public class ShoppingCart {
      *         if no items in cart returns "No items." string.
      * @should return lines of cart items description
      * @should return "No items." if cart is empty
-     * TODO add tests with length of columns
+     * TODO add tests for big length of columns for all ones
+     * TODO add test for centering
      */
     public String formatTicket() {
         
@@ -115,11 +116,11 @@ public class ShoppingCart {
     }
 
     private String printSeparator(int lineLength) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < lineLength; i++)
-            result = result.concat("-");
-        result = result.concat("\n");
-        return result;
+            result.append("-");
+        result.append("\n");
+        return result.toString();
     }
 
     private String[] formatItemLines(List<String[]> lines) {
