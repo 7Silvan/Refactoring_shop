@@ -128,7 +128,7 @@ public class ShoppingCart {
         int index = 0;
         for (Item item : items) {
             int discount = calculateDiscount(item.type, item.quantity);
-            double itemTotal = item.price * item.quantity * (100.00 - discount) / 100.00;
+            double itemTotal = calculateItemTotal(item);
 
             lines.add(new String[]{
                     String.valueOf(++index),
@@ -142,6 +142,11 @@ public class ShoppingCart {
         }
         return new String[]{String.valueOf(index), "", "", "", "",
                 MONEY.format(total)};
+    }
+    
+    private static double calculateItemTotal(Item item) {
+        return item.getPrice() * item.getQuantity() *
+                (100.00 - calculateDiscount(item.getType(), item.getQuantity())) / 100.00;
     }
 
     // --- private section -----------------------------------------------------
