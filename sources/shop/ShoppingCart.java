@@ -127,14 +127,12 @@ public class ShoppingCart {
         double total = 0.00;
         int index = 0;
         for (Item item : items) {
-            int discount = calculateDiscount(item.type, item.quantity);
-
             lines.add(new String[]{
                     String.valueOf(++index),
                     item.title,
                     MONEY.format(item.price),
                     String.valueOf(item.quantity),
-                    (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
+                    (calculateDiscount(item.type, item.quantity) == 0) ? "-" : (String.valueOf(calculateDiscount(item.type, item.quantity)) + "%"),
                     MONEY.format(calculateItemTotal(item))
             });
             total += calculateItemTotal(item);
