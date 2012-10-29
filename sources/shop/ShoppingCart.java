@@ -115,7 +115,9 @@ public class ShoppingCart {
         return sb.toString();
     }
 
-    private String printSeparator(int lineLength) {
+    // --- private section -----------------------------------------------------
+
+    private static String printSeparator(int lineLength) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < lineLength; i++)
             result.append("-");
@@ -124,7 +126,6 @@ public class ShoppingCart {
     }
 
     private String[] formatItemLines(List<String[]> lines) {
-        double total = 0.00;
         int index = 0;
         for (Item item : items) {
             lines.add(new String[]{
@@ -135,10 +136,9 @@ public class ShoppingCart {
                     (calculateDiscount(item.type, item.quantity) == 0) ? "-" : (String.valueOf(calculateDiscount(item.type, item.quantity)) + "%"),
                     MONEY.format(calculateItemTotal(item))
             });
-            total += calculateItemTotal(item);
         }
         return new String[]{String.valueOf(index), "", "", "", "",
-                MONEY.format(total)};
+                MONEY.format(getTotaItems(items))};
     }
     
     private static double calculateItemTotal(Item item) {
@@ -146,7 +146,13 @@ public class ShoppingCart {
                 (100.00 - calculateDiscount(item.getType(), item.getQuantity())) / 100.00;
     }
 
-    // --- private section -----------------------------------------------------
+    private static double getTotaItems(Collection<Item> items) {
+        double result = 0.00;
+        for (Item item : items) {
+            result += calculateItemTotal(item);
+        }
+        return result;
+    }
 
     private static final NumberFormat MONEY;
 
