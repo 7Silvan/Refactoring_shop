@@ -126,10 +126,9 @@ public class ShoppingCart {
     }
 
     private String[] formatItemLines(List<String[]> lines) {
-        int index = 0;
         for (Item item : items) {
             lines.add(new String[]{
-                    String.valueOf(++index),
+                    String.valueOf(1 + lines.size()),
                     item.getTitle(),
                     MONEY.format(item.getPrice()),
                     String.valueOf(item.getQuantity()),
@@ -137,7 +136,7 @@ public class ShoppingCart {
                     MONEY.format(calculateItemTotal(item))
             });
         }
-        return new String[]{String.valueOf(index), "", "", "", "",
+        return new String[]{String.valueOf(lines.size()), "", "", "", "",
                 MONEY.format(getTotaItems(items))};
     }
 
