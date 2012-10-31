@@ -1,11 +1,10 @@
 package shop;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import shop.ShoppingCart;
-import shop.ShoppingCart.ItemType;
+import shop.Item;
+import shop.ItemType;
 
 import static org.junit.Assert.*;
 
@@ -62,7 +61,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies throw IllegalArgumentException if title is null or empty or longer than 32 chars
-     * @see ShoppingCart#addItem(String, double, int, shop.ShoppingCart.ItemType)
+     * @see ShoppingCart#addItem(String, double, int, ItemType)
      */
     @Test(expected = IllegalArgumentException.class)
     public void addItem_shouldThrowIllegalArgumentExceptionIfTitleIsNullOrEmptyOrLongerThan32Chars() throws Exception {
@@ -73,7 +72,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies throw IllegalArgumentException if price is less than penny
-     * @see ShoppingCart#addItem(String, double, int, shop.ShoppingCart.ItemType)
+     * @see ShoppingCart#addItem(String, double, int, ItemType)
      */
     @Test(expected = IllegalArgumentException.class)
     public void addItem_shouldThrowIllegalArgumentExceptionIfPriceIsLessThanPenny() throws Exception {
@@ -82,7 +81,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies throw IllegalArgumentException if quantity is equals or less than zero
-     * @see ShoppingCart#addItem(String, double, int, shop.ShoppingCart.ItemType)
+     * @see ShoppingCart#addItem(String, double, int, ItemType)
      */
     @Test(expected = IllegalArgumentException.class)
     public void addItem_shouldThrowIllegalArgumentExceptionIfQuantityIsEqualsOrLessThanZero() throws Exception {
@@ -91,7 +90,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return zero for NEW item
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnZeroForNEWItem() throws Exception {
@@ -100,7 +99,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return fifty for SECOND_FREE if quantity bigger than 1
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnFiftyForSECOND_FREEIfQuantityBiggerThan1() throws Exception {
@@ -111,7 +110,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return zero for SECOND_FREE if quantity equals zero
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnZeroForSECOND_FREEIfQuantityEqualsZero() throws Exception {
@@ -120,7 +119,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return seventy for SALE
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnSeventyForSALE() throws Exception {
@@ -130,7 +129,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return per each 10 items not NEW addition 1
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnPerEach10ItemsNotNEWAddition1() throws Exception {
@@ -139,7 +138,7 @@ public class ShoppingCartTest {
 
     /**
      * @verifies return per each 10 items not NEW addition 1 but not more than 80
-     * @see ShoppingCart#calculateDiscount(shop.ShoppingCart.ItemType, int)
+     * @see ShoppingCart#calculateDiscount(ItemType, int)
      */
     @Test
     public void calculateDiscount_shouldReturnPerEach10ItemsNotNEWAddition1ButNotMoreThan80() throws Exception {
