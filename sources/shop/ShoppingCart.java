@@ -7,7 +7,7 @@ import java.text.*;
  * Containing items and calculating price.
  */
 public class ShoppingCart {
-    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE};
+
 
     /**
      * Tests all class methods.
@@ -104,7 +104,7 @@ public class ShoppingCart {
                 appendFormatted(sb, line[i], align[i], width[i]);
             sb.append("\n");
         }
-        
+
         if (lines.size() > 0)
             sb.append(printSeparator(lineLength));
 
@@ -140,7 +140,7 @@ public class ShoppingCart {
         return new String[]{String.valueOf(index), "", "", "", "",
                 MONEY.format(getTotaItems(items))};
     }
-    
+
     private static double calculateItemTotal(Item item) {
         return item.getPrice() * item.getQuantity() *
                 (100.00 - calculateDiscount(item.getType(), item.getQuantity())) / 100.00;
