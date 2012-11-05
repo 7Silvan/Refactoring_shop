@@ -76,11 +76,14 @@ public class ShoppingCart {
 
         // column max length
         int[] width = new int[]{0, 0, 0, 0, 0, 0};
+
         for (String[] line : lines)
             for (int i = 0; i < line.length; i++)
                 width[i] = (int) Math.max(width[i], line[i].length());
+
         for (int i = 0; i < header.length; i++)
             width[i] = (int) Math.max(width[i], header[i].length());
+
         for (int i = 0; i < footer.length; i++)
             width[i] = (int) Math.max(width[i], footer[i].length());
 
