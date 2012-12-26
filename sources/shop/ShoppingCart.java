@@ -34,7 +34,7 @@ public class ShoppingCart {
      * @should throw IllegalArgumentException if quantity is equals or less than zero
      */
     public void addItem(String title, double price, int quantity, ItemType type) {
-        items.add(new Item(title, price, quantity, type));
+        items.add(new Item(title, price, quantity, type)); // TODO Method Factory, maybe :)
     }
 
     /**
@@ -73,6 +73,7 @@ public class ShoppingCart {
         String[] footer = formatItemLines(lines);
 
         // formatting table
+        // todo incapsulating all fors
 
         // column max length
         int[] width = new int[]{0, 0, 0, 0, 0, 0};
@@ -128,6 +129,11 @@ public class ShoppingCart {
         return result.toString();
     }
 
+    /**
+     * Formats from ItemContainer into list of lines of String arrays (every array is item's record in the cart)
+     * @param lines the list to contain formatted lines of shopping cart's items
+     * @return the finish line (totals of the table)
+     */
     private String[] formatItemLines(List<String[]> lines) {
         for (Item item : items) {
             lines.add(new String[]{
@@ -143,6 +149,12 @@ public class ShoppingCart {
                 MONEY.format(getTotaItems(items))};
     }
 
+    /**
+     * Calculates item's cost = p * q * %
+     * Discount calculating - (@see calculateDiscount)
+     * @param item
+     * @return
+     */
     private static double calculateItemTotal(Item item) {
         return item.getPrice() * item.getQuantity() *
                 (100.00 - calculateDiscount(item.getType(), item.getQuantity())) / 100.00;
